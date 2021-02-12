@@ -1,0 +1,39 @@
+{
+  "name": "fastify-secrets-vault",
+  "version": "0.0.1",
+  "description": "Fastify secrets plugin for HashiCorp's Vault",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "fastify": "^3.11.0",
+    "semistandard": "^16.0.0",
+    "snazzy": "^9.0.0",
+    "tap": "^14.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkampitakis/fastify-secrets-vault.git"
+  },
+  "keywords": [
+    "fastify",
+    "fastify-plugin",
+    "fastify-secrets",
+    "vault",
+    "hashicorp",
+    "secrets"
+  ],
+  "author": "Georgios Kampitakis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gkampitakis/fastify-secrets-vault/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://github.com/gkampitakis/fastify-secrets-vault#readme",
+  "dependencies": {
+    "fastify-secrets-core": "^1.1.0"
+  }
+}
