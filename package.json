@@ -5,10 +5,13 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint && jest",
     "lint": "semistandard | snazzy",
     "example": "node example/server.js"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "dependencies": {
     "fastify-plugin": "^3.0.0",
     "node-fetch": "^2.6.1",
@@ -16,9 +19,35 @@
   },
   "devDependencies": {
     "fastify": "^3.12.0",
+    "jest": "^26.6.3",
     "semistandard": "^16.0.0",
-    "snazzy": "^9.0.0",
-    "tap": "^14.11.0"
+    "snazzy": "^9.0.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "verbose": true,
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.js$",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "!lib/index.js",
+      "!lib/__mocks__"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  },
+  "semistandard": {
+    "env": [
+      "jest"
+    ]
   },
   "repository": {
     "type": "git",

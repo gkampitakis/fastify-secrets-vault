@@ -4,7 +4,7 @@ import { ldap } from './authMethods';
 interface FastifySecretsVaultOptions {
   namespace?: string;
   secrets: {
-    [key: string]: string | { path: string; key?: string | string[] }
+    [secret: string]: string | { path: string; key?: string | string[] }
   },
   concurrency?: number;
   vaultOptions?: {
