@@ -2,9 +2,12 @@
   "name": "fastify-secrets-vault",
   "version": "0.0.1",
   "description": "Fastify secrets plugin for HashiCorp's Vault",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "semistandard | snazzy",
+    "example": "node example/server.js"
   },
   "dependencies": {
     "fastify-plugin": "^3.0.0",
