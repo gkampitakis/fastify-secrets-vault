@@ -213,5 +213,16 @@ describe('Vault Client', () => {
 
       await expect(client.read(value)).rejects.toThrow("Key: 'key2' not found");
     });
+
+    it('Should throw error if api vault return errors', async () => {
+      const client = new VaultClient({
+        token: 'token'
+      });
+      mock.results = {
+        errors: ['Permission denied']
+      };
+
+      await expect(client.read('path/to/secret')).rejects.toThrow('Permission denied');
+    });
   });
 });
