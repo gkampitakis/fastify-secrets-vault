@@ -5,12 +5,12 @@ const VaultClient = require('../lib/vault-client');
 jest.mock('node-fetch');
 
 describe('Vault Client', () => {
-  const { options, callSpy } = jest.requireMock('node-fetch');
+  const { mock, callSpy } = jest.requireMock('node-fetch');
 
   beforeEach(() => {
     callSpy.mockClear();
-    options.error = false;
-    options.results = {};
+    mock.error = false;
+    mock.results = {};
   });
 
   describe('Initialize', () => {
@@ -19,13 +19,13 @@ describe('Vault Client', () => {
 
       expect(client.token).toBe(undefined);
       expect(client.authentication).toBe(undefined);
-      expect(client.apiVersion).toBe('v1');
+      expect(client.secretsEngineVersion).toBe('v2');
       expect(client.endpoint).toBe('http://127.0.0.1:8200');
     });
 
     it('Should pass options', () => {
       const client = new VaultClient({
-        apiVersion: 'v2',
+        secretsEngineVersion: 'v1',
         authentication: {},
         endpoint: 'http://mock.vault.com',
         token: 'token'
@@ -33,7 +33,7 @@ describe('Vault Client', () => {
 
       expect(client.token).toBe('token');
       expect(client.authentication).toEqual({});
-      expect(client.apiVersion).toBe('v2');
+      expect(client.secretsEngineVersion).toBe('v1');
       expect(client.endpoint).toBe('http://mock.vault.com');
     });
   });
@@ -62,7 +62,7 @@ describe('Vault Client', () => {
             }
           });
           const endpoint = 'http://127.0.0.1:8200/v1/auth/ldap/login/user';
-          options.results = {
+          mock.results = {
             auth: {
               client_token: 'token'
             }
@@ -98,7 +98,7 @@ describe('Vault Client', () => {
       const client = new VaultClient({
         token: 'token'
       });
-      options.results = {
+      mock.results = {
         data: {
           data: 'mySecretData'
         }
@@ -112,7 +112,7 @@ describe('Vault Client', () => {
       const client = new VaultClient({
         token: 'token'
       });
-      options.results = {
+      mock.results = {
         data: {
           data: {
             key1: 'mySecretData1',
@@ -132,7 +132,7 @@ describe('Vault Client', () => {
       const client = new VaultClient({
         token: 'token'
       });
-      options.results = {
+      mock.results = {
         data: {
           data: {
             key1: 'mySecretData1',
@@ -149,6 +149,26 @@ describe('Vault Client', () => {
       expect(secret).toEqual({ key2: 'mySecretData2', key3: 'mySecretData3' });
     });
 
+    it('Should handle non versioned secrets', async () => {
+      const client = new VaultClient({
+        token: 'token',
+        secretsEngineVersion: 'v1'
+      });
+      mock.results = {
+        data: {
+          key1: 'mySecretData1',
+          key2: 'mySecretData2',
+          key3: 'mySecretData3'
+        }
+      };
+
+      const secret = await client.read({
+        path: '/path/to/secret',
+        key: ['key2']
+      });
+      expect(secret).toEqual({ key2: 'mySecretData2' });
+    });
+
     it('Should throw error for missing secret', async () => {
       const client = new VaultClient({
         token: 'token'
@@ -162,7 +182,7 @@ describe('Vault Client', () => {
       const client = new VaultClient({
         token: 'token'
       });
-      options.results = {
+      mock.results = {
         data: {
           data: {}
         }
@@ -179,7 +199,7 @@ describe('Vault Client', () => {
       const client = new VaultClient({
         token: 'token'
       });
-      options.results = {
+      mock.results = {
         data: {
           data: {
             key: 'data'

@@ -1,5 +1,5 @@
 const callSpy = jest.fn();
-const options = {
+const mock = {
   error: false,
   results: {}
 };
@@ -9,11 +9,11 @@ function fetch (...args) {
 
   return Promise.resolve({
     json () {
-      return Promise.resolve(options.results);
+      return Promise.resolve(mock.results);
     }
   });
 }
 
 module.exports = fetch;
 module.exports.callSpy = callSpy;
-module.exports.options = options;
+module.exports.mock = mock;

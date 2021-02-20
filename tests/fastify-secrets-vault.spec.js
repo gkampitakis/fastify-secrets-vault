@@ -54,7 +54,7 @@ describe('Fastify Secrets Vault', () => {
 
   it('Should pass correct options to VaultClient', async () => {
     const vaultOptions = {
-      apiVersion: 'v2',
+      secretsEngineVersion: 'v2',
       endpoint: 'https://mock.vault.com',
       token: 'token',
       authentication: {

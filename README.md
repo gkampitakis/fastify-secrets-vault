@@ -5,6 +5,8 @@
 
 Fastify secrets plugin for [HashiCorp's Vault](https://www.vaultproject.io/).
 
+> ⚠️ Still under development, changes on the api might happen.
+
 ## Install
 
 ```bash
@@ -76,9 +78,9 @@ await fastify.ready();
     Then you can access your secrets with `fastify.secrets.main_token`.
 
 -   `vaultOptions`
-    -   `apiVersion`: _(optional)_ Vault api version. Default value: `v1`
-    -   `endpoint`: _(optional)_ Endpoint for reaching vault server. Default value: `http://127.0.0.1:8200`
-    -   `token`: _(optional)_ Token to authenticate requests with
+    -   `secretsEngineVersion`: _(optional)_ Vault KV Secrets Engine can operate in two modes `v1` and `v2`. Default value: `v2`.
+    -   `endpoint`: _(optional)_ Endpoint for reaching vault server. Default value: `http://127.0.0.1:8200`.
+    -   `token`: _(optional)_ Token to authenticate requests with.
     -   `authentication`: _(optional)_ This can be provided instead of token. It's a way of retrieving a token. Currently supported `ldap`.
 
 ### Authentication

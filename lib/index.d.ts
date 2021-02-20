@@ -12,7 +12,7 @@ interface FastifySecretsVaultOptions {
    * you want to retrieve from the secret returned object or secret: { path: 'path/to/secret', key: ['key1','key2'] } when you want multiple keys. 
    */
   secrets: {
-    [secret: string]: string | { path: string; key?: string | string[] }
+    [secret: string]: string | { path: string; key?: string | [string, ...string[]] }
   },
   /**
    * How many concurrent secrets you can retrieve. Default value: 5
@@ -20,9 +20,9 @@ interface FastifySecretsVaultOptions {
   concurrency?: number;
   vaultOptions?: {
     /**
-     *  Vault api version. Default value: 'v1'
+     *  Vault api version. Default value: 'v2'
      */
-    apiVersion?: 'v1' | 'v2';
+    secretsEngineVersion?: 'v1' | 'v2';
     /**
      * Endpoint for reaching vault server. Default value: 'http://127.0.0.1:8200'
      */
