@@ -45,6 +45,9 @@
     }
   },
   "semistandard": {
+    "ignore": [
+      "example/**/*"
+    ],
     "env": [
       "jest"
     ]
