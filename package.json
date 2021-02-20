@@ -1,6 +1,6 @@
 {
   "name": "fastify-secrets-vault",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Fastify secrets plugin for HashiCorp's Vault",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -10,7 +10,8 @@
     "example": "node example/server.js"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "!lib/__mocks__/**/*"
   ],
   "dependencies": {
     "fastify-plugin": "^3.0.0",
@@ -32,8 +33,7 @@
     ],
     "collectCoverageFrom": [
       "lib/**/*.js",
-      "!lib/index.js",
-      "!lib/__mocks__"
+      "!lib/index.js"
     ],
     "coverageThreshold": {
       "global": {
