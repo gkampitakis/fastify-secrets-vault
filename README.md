@@ -5,8 +5,6 @@
 
 Fastify secrets plugin for [HashiCorp's Vault](https://www.vaultproject.io/).
 
-> ⚠️ Still under development, changes on the api might happen.
-
 ## Install
 
 ```bash
