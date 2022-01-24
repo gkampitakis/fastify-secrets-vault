@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "fastify-plugin": "^3.0.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.2.0",
     "p-props": "^4.0.0"
   },
   "devDependencies": {
