@@ -94,6 +94,18 @@ await fastify.ready();
 }
 ```
 
+#### Approle
+
+```js
+{
+   method: 'approle',
+   credentials: {
+     roleId: 'xxxxx-xxxxxx-xxxxxx-xxxxxx',
+     secretId: 'xxxxxx-xxxxxx-xxxxxxx-xxxxxx'
+   }
+}
+```
+
 ## Typescript
 
 In order to use this plugin you need to enable the flag `"esModuleInterop": true` in `tsconfig.json`.
