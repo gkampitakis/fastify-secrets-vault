@@ -5,3 +5,11 @@ export interface ldap {
     username: string;
   }
 }
+
+export interface approle {
+  method: 'approle',
+  credentials: {
+    roleId: string;
+    secretId: string;
+  }
+}

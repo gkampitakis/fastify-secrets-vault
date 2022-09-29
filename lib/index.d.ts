@@ -1,5 +1,5 @@
 import { FastifyPluginCallback } from 'fastify';
-import { ldap } from './authMethods';
+import { ldap, approle } from './authMethods';
 
 interface FastifySecretsVaultOptions {
   /**
@@ -33,9 +33,9 @@ interface FastifySecretsVaultOptions {
     token?: string;
     /**
      * This can be provided instead of token. It's a way of retrieving a token.
-     * Currently supported: 'ldap'.
+     * Currently supported: 'ldap' and 'approle'.
      */
-    authentication?: ldap;
+    authentication?: ldap | approle;
   }
 }
 

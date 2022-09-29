@@ -50,45 +50,74 @@ describe('Vault Client', () => {
     });
 
     describe('Authentication', () => {
-      describe('Ldap', () => {
-        it('Should retrieve token with ldap', async () => {
-          const client = new VaultClient({
-            authentication: {
-              method: 'ldap',
-              credentials: {
-                password: '****',
-                username: 'user'
-              }
+      it('Should retrieve token with ldap', async () => {
+        const client = new VaultClient({
+          authentication: {
+            method: 'ldap',
+            credentials: {
+              password: '****',
+              username: 'user'
             }
-          });
-          const endpoint = 'http://127.0.0.1:8200/v1/auth/ldap/login/user';
-          mock.results = {
-            auth: {
-              client_token: 'token'
-            }
-          };
+          }
+        });
+        const endpoint = 'http://127.0.0.1:8200/v1/auth/ldap/login/user';
+        mock.results = {
+          auth: {
+            client_token: 'token'
+          }
+        };
 
-          await client.ready();
+        await client.ready();
 
-          expect(callSpy).toHaveBeenCalledWith(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify({ password: '****' })
-          });
-          expect(client.token).toBe('token');
+        expect(callSpy).toHaveBeenCalledWith(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({ password: '****' })
+        });
+        expect(client.token).toBe('token');
+      });
+
+      it('Should retrieve token with approle', async () => {
+        const credentials = {
+          roleId: 'role-id',
+          secretId: 'secret-id'
+        };
+
+        const client = new VaultClient({
+          authentication: {
+            method: 'approle',
+            credentials
+          }
+        });
+        const endpoint = 'http://127.0.0.1:8200/v1/auth/approle/login';
+        mock.results = {
+          auth: {
+            client_token: 'token'
+          }
+        };
+
+        await client.ready();
+
+        expect(callSpy).toHaveBeenCalledWith(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        });
+        expect(client.token).toBe('token');
+      });
+
+      it('Should throw error if unknown auth method', async () => {
+        const client = new VaultClient({
+          authentication: {
+            method: 'pass'
+          }
         });
 
-        it('Should throw error if unknown auth method', async () => {
-          const client = new VaultClient({
-            authentication: {
-              method: 'pass'
-            }
-          });
-
-          await expect(client.ready()).rejects.toThrow('fastify-secrets-vault: unknown authentication method');
-        });
+        await expect(client.ready()).rejects.toThrow('fastify-secrets-vault: unknown authentication method');
       });
     });
   });
