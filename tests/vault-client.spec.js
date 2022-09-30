@@ -105,7 +105,7 @@ describe('Vault Client', () => {
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify(credentials)
+          body: JSON.stringify({ role_id: credentials.roleId, secret_id: credentials.secretId })
         });
         expect(client.token).toBe('token');
       });
